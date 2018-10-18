@@ -1,0 +1,28 @@
+<html>
+    <img id="testimg" src=""/>
+    <script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+    <script src="js/config.js"></script>
+    <script>
+        
+        var ws = new WebSocket(SERVERADDRESS);
+        var alldata ="";
+        
+        ws.onopen = function(){
+          ws.send("c");
+        };
+        
+        ws.onmessage = function(event) {
+          //ws.send("c");
+          console.log(event.data);
+          if (event.data != "done") {
+            alldata += event.data;
+          }
+          else {
+            document.getElementById('testimg').setAttribute('src', 'data:image/png;base64,'+alldata);
+            alldata = "";
+          }
+        };
+        
+        </script>
+    <p>hello!</p>
+</html>
